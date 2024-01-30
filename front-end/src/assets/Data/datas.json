@@ -1,0 +1,26 @@
+{
+    "services": [
+      {
+        "title": "Gestion Comptable",
+        "description": "Optimisez la gestion de vos finances avec notre système intuitif et puissant. Suivez les transactions, générez des rapports détaillés et restez en contrôle.",
+        "subtitle": "Suivi Financier",
+        "image": "/src/assets/img/features/money.png",
+        "alt": "Représentation d'argent"
+      },
+      {
+        "title": "Gestion Sociale",
+        "description": "Facilitez la gestion de votre équipe et la communication interne. Gérez les plannings, les horaires et favorisez une ambiance de travail harmonieuse.",
+        "subtitle": "Ressources Humaines",
+        "image": "/src/assets/img/features/schedule.png",
+        "alt": "Représentation d'un planning"
+      },
+      {
+        "title": "Expérience Client",
+        "description": "Offrez une expérience exceptionnelle à vos clients. Simplifiez les demandes spéciales, personnalisez les services et maximisez la satisfaction de la clientèle.",
+        "subtitle": "Service Clientèle",
+        "image": "/src/assets/img/features/customer.png",
+        "alt": "Représentation d'un client"
+      }
+    ]
+  }
+  
