@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const CopyrightsFooter = () => {
   return (
     <div className="w-full px-4 flex items-center justify-between lg:justify-evenly flex-row lg:flex-col bg-dark gap-3 lg:gap-0">

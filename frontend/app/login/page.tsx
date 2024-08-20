@@ -28,9 +28,7 @@ const Login = () => {
   };
 
   return (
-    <>
-      <div>
-        <section className="bg-gray-50 dark:bg-gray-900">
+        <section className="bg-gray-50 dark:bg-gray-900" id="login-section">
           <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
             <div className="flex flex-col justify-center">
               <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
@@ -54,9 +52,9 @@ const Login = () => {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M1 5h12m0 0L9 1m4 4L9 9"
                   />
                 </svg>
@@ -78,6 +76,7 @@ const Login = () => {
                     <input
                       type="email"
                       name="email"
+                      autoComplete="current-email"
                       placeholder="Email"
                       onChange={handleChange}
                       required
@@ -94,6 +93,7 @@ const Login = () => {
                     <input
                       type="password"
                       name="password"
+                      autoComplete="current-password"
                       placeholder="••••••••"
                       onChange={handleChange}
                       id="password"
@@ -119,12 +119,12 @@ const Login = () => {
                         Se souvenir de moi
                       </label>
                     </div>
-                    <a
-                      href="#"
+                    <Link
+                      href="/forgotPassword"
                       className="ms-auto text-sm font-medium text-green-600 hover:underline dark:text-primary"
                     >
                       Mot de passe oublié ?
-                    </a>
+                    </Link>
                   </div>
                   <button
                     type="submit"
@@ -143,8 +143,6 @@ const Login = () => {
             </div>
           </div>
         </section>
-      </div>
-    </>
   );
 };
 
