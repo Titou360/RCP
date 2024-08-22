@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Step1Form from '../components/Step1RegisterForm';
 import Step2Form from '../components/Step2RegisterForm';
 import Step3Form from '../components/Step3RegisterForm';
+import Step4Form from '../components/Step4RegisterForm';
 import ProgressBar from '../components/ProgressBar';
 
 const RegisterPage = () => {
@@ -21,22 +22,32 @@ const RegisterPage = () => {
   };
 
   const handleSubmit = async () => {
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const response = await fetch('http://localhost:8081/api/register', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+      });
+      console.log("formdata", formData )
 
-    if (response.ok) {
-      // Handle success
-      alert('Form submitted successfully!');
-    } else {
-      // Handle error
-      alert('Error submitting form');
-    }
-  };
+      if (!response.ok) {
+          const errorData = await response.json();
+          console.error('Erreur lors de l\'inscription:', errorData);
+          return;
+      }
+
+      const data = await response.json();
+      console.log('Inscription réussie:', data);
+  } catch (error) {
+      console.error('Erreur de réseau:', error);
+  }
+};
+  
+  
+  
+  
 
   return (
     <div className="w-3/4 mx-auto p-6">
@@ -46,7 +57,10 @@ const RegisterPage = () => {
         <Step2Form onPrevious={handlePrevious} onNext={handleNext} />
       )}
       {step === 3 && (
-        <Step3Form onPrevious={handlePrevious} onSubmit={handleSubmit} />
+        <Step3Form onPrevious={handlePrevious} onNext={handleNext} />
+      )}
+      {step === 4 && (
+        <Step4Form onPrevious={handlePrevious} onSubmit={handleSubmit} />
       )}
     </div>
   );

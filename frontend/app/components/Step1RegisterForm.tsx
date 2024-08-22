@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 // Telephone management
 import { PhoneInput, defaultCountries, parseCountry } from 'react-international-phone';
@@ -10,25 +10,49 @@ const Step1RegisterForm = ({ onNext }: { onNext: (data: any) => void }) => {
     firstName: '',
     lastName: '',
     email: '',
-    phoneNumber: ''
+    phone: ''
   });
+
+  const [phone, setPhone] = useState('');
+
+  // Chargement des données depuis le localStorage lors du rendu initial
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedFormData = localStorage.getItem('formData');
+      
+      if (savedFormData) {
+        const parsedData = JSON.parse(savedFormData);
+        setFormData(parsedData);
+        setPhone(parsedData.phone || '');  // Charger le téléphone
+      }
+    }
+  }, []);
+
+  // Sauvegarde automatique dans localStorage quand formData ou phone change
+  useEffect(() => {
+    const updatedFormData = { ...formData, phone: phone };
+    localStorage.setItem('formData', JSON.stringify(updatedFormData));
+  }, [formData, phone]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    onNext(formData);
+    
+    // Sauvegarder directement dans le localStorage lors de la soumission
+    const updatedFormData = { ...formData, phone: phone };
+    localStorage.setItem('formData', JSON.stringify(updatedFormData));
+  
+    onNext(updatedFormData);
   };
 
   // Telephone Management
   const phoneUtil = PhoneNumberUtil.getInstance();
-  const [phone, setPhone] = useState('');
   const countries = defaultCountries.filter((country) => {
     const { iso2 } = parseCountry(country);
     return ['us', 'fr', 'gb'].includes(iso2);
   });
 
   const isPhoneValid = useCallback(
-    (phone : any) => {
+    (phone: any) => {
       try {
         return phoneUtil.isValidNumber(phoneUtil.parseAndKeepRawInput(phone));
       } catch (error) {
@@ -36,7 +60,7 @@ const Step1RegisterForm = ({ onNext }: { onNext: (data: any) => void }) => {
       }
     },
     [phoneUtil]
-  ); // Pas de dépendances nécessaires pour isPhoneValid
+  );
 
   return (
     <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
@@ -70,7 +94,6 @@ const Step1RegisterForm = ({ onNext }: { onNext: (data: any) => void }) => {
               />
             </div>
             <div>
-              {' '}
               <label htmlFor="lastname" className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
                 Votre nom
               </label>
@@ -101,11 +124,13 @@ const Step1RegisterForm = ({ onNext }: { onNext: (data: any) => void }) => {
             </div>
             <div>
               <label htmlFor="phone" className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">
-                Votre téléphone &quot;?&quot;
+                Votre téléphone
               </label>
               <PhoneInput
                 value={phone}
-                onChange={(phone) => setPhone(phone)}
+                onChange={(phone) => {
+                  setPhone(phone);
+                }}
                 defaultCountry="fr"
                 countries={countries}
                 inputProps={{
@@ -132,9 +157,11 @@ const Step1RegisterForm = ({ onNext }: { onNext: (data: any) => void }) => {
                 </label>
               </div>
             </div>
-            <div className="flex flex-row justify-end"
-            >
-              <button type="submit" className="w-[45%] text-white bg-primary hover:bg-primary-800 focus:ring-4 focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary">
+            <div className="flex flex-row justify-end">
+              <button
+                type="submit"
+                className="w-[45%] text-white bg-primary hover:bg-primary-800 focus:ring-4 focus:ring-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary"
+              >
                 Suivant
               </button>
             </div>

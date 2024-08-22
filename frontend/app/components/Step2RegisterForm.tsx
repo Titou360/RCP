@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Step2RegisterForm = ({ onPrevious, onNext }: { onPrevious: () => void; onNext: (data: any) => void }) => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,19 @@ const Step2RegisterForm = ({ onPrevious, onNext }: { onPrevious: () => void; onN
     state: '',
     country: ''
   });
+
+  // Charger les données sauvegardées depuis le localStorage au montage du composant
+  useEffect(() => {
+    const savedFormData = localStorage.getItem('step2FormData');
+    if (savedFormData) {
+      setFormData(JSON.parse(savedFormData));
+    }
+  }, []);
+
+  // Sauvegarder les données dans le localStorage à chaque mise à jour de formData
+  useEffect(() => {
+    localStorage.setItem('step2FormData', JSON.stringify(formData));
+  }, [formData]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
