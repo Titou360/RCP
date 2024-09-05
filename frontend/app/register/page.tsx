@@ -73,7 +73,7 @@ const RegisterPage = () => {
       console.log('Inscription réussie:', responseData);
   
       setTimeout(() => {
-        router.push('/');
+        router.push('/dashboard');
       }, 100);
   
     } catch (error) {

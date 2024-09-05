@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "ESNext"],
+    "types": ["node", "@types/jsonwebtoken"],
     "target": "ES2015",
     "downlevelIteration": true,
     "allowJs": true,
