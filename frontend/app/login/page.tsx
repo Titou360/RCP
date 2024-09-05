@@ -35,10 +35,8 @@ const Login = () => {
         setError(errorResponse.error || "Une erreur est survenue");
         return;
       }
-      alert("Login successful");
       router.push("/dashboard");
       const data = await response.json(); // Récupérer la réponse complète, y compris le token
-      console.log("Réponse de l'API:", data);
       localStorage.setItem("token", data.token);
  // Rediriger vers le tableau de bord après connexion
     } catch (error) {
