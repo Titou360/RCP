@@ -26,8 +26,8 @@ const Step4RegisterForm = ({ onPrevious, onSubmit }: { onPrevious: () => void; o
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Appelle preventDefault pour éviter le rechargement de la page
 
     // Validation des mots de passe
     if (formData.password !== formData.confirmPassword) {
@@ -40,6 +40,7 @@ const Step4RegisterForm = ({ onPrevious, onSubmit }: { onPrevious: () => void; o
     }
     setError('');
 
+    // Passer les données du formulaire à la fonction onSubmit
     onSubmit(formData);
   };
 
@@ -47,11 +48,9 @@ const Step4RegisterForm = ({ onPrevious, onSubmit }: { onPrevious: () => void; o
     <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
       <div className="flex flex-col justify-center">
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-          Protégeons tout ça <span className='text-xl'>😊</span>
+          Protégeons tout ça <span className="text-xl">😊</span>
         </h1>
-        <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
-          Utilisez un mot de passe robuste pour vous protéger
-        </p>
+        <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Utilisez un mot de passe robuste pour vous protéger</p>
       </div>
       <div>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -63,15 +62,12 @@ const Step4RegisterForm = ({ onPrevious, onSubmit }: { onPrevious: () => void; o
               type={passwordVisible ? 'text' : 'password'}
               id="password"
               name="password"
+              autoComplete="new-password"
               value={formData.password}
               onChange={handleInputChange}
               className="p-2 border rounded w-full"
             />
-            <button
-              type="button"
-              onClick={() => setPasswordVisible(!passwordVisible)}
-              className="absolute inset-y-0 right-0 pr-3 flex items-center "
-            >
+            <button type="button" onClick={() => setPasswordVisible(!passwordVisible)} className="absolute inset-y-0 right-0 pr-3 flex items-center ">
               <i className={`fas ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></i>
             </button>
           </div>
@@ -97,8 +93,6 @@ const Step4RegisterForm = ({ onPrevious, onSubmit }: { onPrevious: () => void; o
             </button>
           </div>
 
-          {error && <p className="text-red-500">{error}</p>}
-
           <div className="w-full flex flex-row justify-between">
             <button
               type="button"
@@ -114,6 +108,7 @@ const Step4RegisterForm = ({ onPrevious, onSubmit }: { onPrevious: () => void; o
               S&apos;inscrire
             </button>
           </div>
+          {error && <p className="text-red-500">{error}</p>}
         </form>
       </div>
     </div>

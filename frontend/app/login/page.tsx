@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { login } from "../../services/authService";
 import Link from "next/link";
 
 const Login = () => {
@@ -9,16 +8,16 @@ const Login = () => {
     password: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
+    const { name, value } = event.target;
     setFormData({
       ...formData,
       [name]: value,
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
       const response = await login(formData);
       alert("Login successful");
