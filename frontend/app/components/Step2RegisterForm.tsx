@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect } from 'react';
 
 const Step2RegisterForm = ({ onPrevious, onNext }: { onPrevious: () => void; onNext: (data: any) => void }) => {

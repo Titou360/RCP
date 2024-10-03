@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -104,6 +104,8 @@ const Login = () => {
                 Accès à votre compte
               </button>
             </form>
+            <div className="flex row gap-1"><p>Pas encore de compte ? </p> <Link href="/register" className="text-green-700 hover:underline cursor-pointer">Inscrivez-vous</Link></div>
+            
           </div>
         </div>
       </div>

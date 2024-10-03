@@ -1,4 +1,4 @@
-import React from "react";
+
 import CopyrightsFooter from "./CopyrightsFooter";
 
 const Footer: React.FC = () => {
